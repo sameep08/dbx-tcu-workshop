@@ -24,8 +24,11 @@ Your instructor will walk you through this, but in short:
 
 1. In Databricks, open **Workspace** in the left sidebar.
 2. Click your username → **Create → Git folder** (or **Repos → Add**).
-3. Paste this repository's URL and click **Create**. All the notebooks appear in
-   your workspace.
+3. Paste this repository's URL and click **Create**:
+   ```
+   https://github.com/sameep08/dbx-tcu-workshop
+   ```
+   All the notebooks appear in your workspace.
 4. Open the **`notebooks/`** folder and start with **`00_Start_Here`**.
 
 ## 📚 What you'll build
