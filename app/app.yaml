@@ -1,0 +1,9 @@
+# Databricks App configuration.
+# This tells Databricks Apps how to start the app.
+command: ["streamlit", "run", "app.py"]
+
+# Optional: pin the app to a specific SQL warehouse.
+# If you leave this out, app.py automatically uses the first warehouse it finds.
+# env:
+#   - name: DATABRICKS_WAREHOUSE_ID
+#     value: "your-warehouse-id-here"
