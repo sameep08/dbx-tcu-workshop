@@ -1,0 +1,50 @@
+1️⃣ Dashboard prompt
+
+You are helping me build a Databricks AI/BI dashboard. I am a beginner.
+
+My data is a NYC taxi star schema in Unity Catalog, catalog "workspace", schema "tcu_taxi":
+- fact_trips (one row per taxi trip): pickup_date_key, pickup_location_key,
+  dropoff_location_key, pickup_hour, fare_usd, trip_miles, duration_min, mph, trip_count
+- dim_date (join fact_trips.pickup_date_key = dim_date.date_key): full_date, year,
+  month, day, day_of_week, is_weekend
+- dim_location (join fact_trips.pickup_location_key = dim_location.location_key): zip_code
+
+"Revenue" = SUM(fare_usd). "Trips" = COUNT(*). Currency is USD.
+
+Please give me, as a set of dashboard tiles, the SQL query for each of these, using
+fully-qualified table names (workspace.tcu_taxi.<table>) and joining to dimensions where needed:
+1. KPI counters: total trips, total revenue, average fare, average trip distance.
+2. A bar chart of trips by hour of day.
+3. A bar chart of total revenue by day of week (Mon–Sun).
+4. A chart of average fare across distance buckets (0-1, 1-3, 3-5, 5-10, 10+ miles).
+5. A table of the top 10 pickup zip codes by number of trips, with their average fare.
+
+For each tile, tell me: the SQL, the chart type to pick, and which columns go on the X and Y axes.
+Keep the SQL simple and standard Databricks SQL. Do not invent columns that aren't listed above.
+
+---
+
+2️⃣ App prompt
+
+You are helping me build a Databricks App. I am a beginner. Write me a complete,
+working Streamlit app that runs as a Databricks App and reads my Unity Catalog tables.
+
+Data (catalog "workspace", schema "tcu_taxi"), a NYC taxi star schema:
+- fact_trips: pickup_date_key, pickup_location_key, dropoff_location_key, pickup_hour,
+  fare_usd, trip_miles, duration_min, mph, trip_count
+- dim_date (join pickup_date_key = date_key): full_date, year, month, day, day_of_week, is_weekend
+- dim_location (join pickup_location_key = location_key): zip_code
+
+Requirements:
+- Use the Databricks SDK (databricks-sdk) with WorkspaceClient(), which auto-authenticates
+  inside a Databricks App — no tokens in the code.
+- Run SQL via w.statement_execution.execute_statement on a SQL warehouse. Get the warehouse id
+  from the DATABRICKS_WAREHOUSE_ID env var, and if it's not set, use the first warehouse from
+  w.warehouses.list(). Remember result values come back as strings, so convert numbers before formatting.
+- The app should show: a title, four KPI metrics (total trips, total revenue, average fare,
+  average distance), a bar chart of trips by hour, and a bar chart of revenue by day of week.
+- Cache query results for 5 minutes.
+
+Give me three files with their full contents: app.py, app.yaml (command to run streamlit),
+and requirements.txt (streamlit, databricks-sdk, pandas). Then give me the exact
+steps to deploy it under Compute → Apps in Databricks Free Edition.
