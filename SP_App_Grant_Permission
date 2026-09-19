@@ -1,0 +1,4 @@
+GRANT USE CATALOG ON CATALOG workspace TO `<SP_App_ID>`;
+GRANT USE SCHEMA ON SCHEMA workspace.tcu_taxi TO `<SP_App_ID>`;
+GRANT SELECT ON TABLE workspace.tcu_taxi.fact_trips TO `<SP_App_ID>`;
+GRANT SELECT ON TABLE workspace.tcu_taxi.dim_date TO `<SP_App_ID>`;
